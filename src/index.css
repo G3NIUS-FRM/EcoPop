@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root {
+    background-color: #ffffff;
+    color: #1e293b;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 50% -10%, rgba(14, 77, 58, 0.05), transparent 60%),
+      radial-gradient(ellipse 50% 30% at 90% 80%, rgba(165, 204, 63, 0.06), transparent 60%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card primitive — light variant */
+  .glass {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(203, 213, 225, 0.7);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 14px rgba(15, 23, 42, 0.05);
+  }
+  .glass-strong {
+    background-color: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(203, 213, 225, 0.9);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  }
+  .glass-soft {
+    background-color: rgba(248, 250, 252, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  /* Accent text — EcoPop brand palette, no glow */
+  .neon-text {
+    color: #0E4D3A;
+  }
+  .neon-text-plasma {
+    color: #728F22;
+  }
+  .neon-text-violet {
+    color: #1F6E62;
+  }
+
+  /* Form controls light theme */
+  .input-dark {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #1e293b;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input-dark::placeholder { color: #94a3b8; }
+  .input-dark:focus {
+    outline: none;
+    border-color: rgba(14, 77, 58, 0.55);
+    box-shadow: 0 0 0 3px rgba(14, 77, 58, 0.12);
+  }
+  .input-dark option {
+    background-color: #ffffff;
+    color: #1e293b;
+  }
+
+  /* Toggle / checkbox (custom switch) */
+  .toggle-dark {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 2.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+    background-color: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .toggle-dark::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+    transition: transform 0.15s, background-color 0.15s;
+  }
+  .toggle-dark:checked {
+    background-color: #0E4D3A;
+    border-color: #0E4D3A;
+  }
+  .toggle-dark:checked::before {
+    transform: translateX(1rem);
+    background-color: #A5CC3F;
+  }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background-color: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(44, 140, 123, 0.30);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background-color: rgba(44, 140, 123, 0.55); }
+
+  .thin-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+  .thin-scroll::-webkit-scrollbar-thumb {
+    background: rgba(44, 140, 123, 0.30);
+    border-radius: 4px;
+  }
+  .thin-scroll::-webkit-scrollbar-thumb:hover { background: rgba(14, 77, 58, 0.55); }
+  .thin-scroll::-webkit-scrollbar-track { background: transparent; }
+
+  /* Pill / badge — soft tinted variants */
+  .badge-neon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+    font-size: 10px;
+    font-weight: 600;
+    background-color: rgba(14, 77, 58, 0.08);
+    color: #0E4D3A;
+    border: 1px solid rgba(14, 77, 58, 0.20);
+  }
+  .badge-plasma {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+    font-size: 10px;
+    font-weight: 600;
+    background-color: rgba(165, 204, 63, 0.16);
+    color: #5d6e1a;
+    border: 1px solid rgba(165, 204, 63, 0.5);
+  }
+  .badge-violet {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 9999px;
+    padding: 0.125rem 0.5rem;
+    font-size: 10px;
+    font-weight: 600;
+    background-color: rgba(44, 140, 123, 0.10);
+    color: #1F6E62;
+    border: 1px solid rgba(44, 140, 123, 0.35);
+  }
+
+  /* Severity badges (light tint) */
+  .sev-Baja {
+    background-color: rgba(14, 77, 58, 0.08);
+    color: #0E4D3A;
+    border: 1px solid rgba(14, 77, 58, 0.25);
+  }
+  .sev-Media {
+    background-color: rgba(250, 204, 21, 0.14);
+    color: #92720a;
+    border: 1px solid rgba(250, 204, 21, 0.5);
+  }
+  .sev-Alta {
+    background-color: rgba(249, 115, 22, 0.14);
+    color: #b04a06;
+    border: 1px solid rgba(249, 115, 22, 0.5);
+  }
+  .sev-Critica {
+    background-color: rgba(244, 63, 94, 0.14);
+    color: #b21d3d;
+    border: 1px solid rgba(244, 63, 94, 0.5);
+  }
+
+  /* KPI tile — soft white card */
+  .kpi-tile {
+    border-radius: 0.5rem;
+    border: 1px solid rgba(203, 213, 225, 0.6);
+    background-color: #ffffff;
+    padding: 0.625rem 0.75rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .kpi-tile:hover {
+    border-color: rgba(14, 77, 58, 0.30);
+    box-shadow: 0 4px 12px rgba(14, 77, 58, 0.08);
+  }
+}
+
+/* SVG pulse — used by the map markers (kept here so it works on SVG) */
+@keyframes svgPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+/* Event marker pulse — softer than before, no harsh scale */
+.event-dot-pulse {
+  animation: eventPulseAnim 2.2s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform, opacity;
+}
+@keyframes eventPulseAnim {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.25); opacity: 0.7; }
+}
+
+/* Disable pulse animation when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .event-dot-pulse { animation: none; }
+}
+
+/* Territory polygon hover/selected states — toggled via DOM classList to avoid
+   re-rendering every path on each hover. Default state matches the inline
+   stroke + fillOpacity used by the React render, so first paint is correct. */
+.feat-path {
+  transition: fill-opacity 0.12s ease;
+}
+.feat-path.is-hovered {
+  fill-opacity: 0.9;
+  stroke: #A5CC3F;
+  stroke-width: 2;
+}
+.feat-path.is-selected.is-hovered {
+  fill-opacity: 0.9;
+}

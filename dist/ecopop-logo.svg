@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 110" fill="none" role="img" aria-label="EcoPop">
+  <!-- Wordmark "Eco" -->
+  <text x="0" y="84"
+        font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif"
+        font-weight="800" font-size="84" letter-spacing="-3"
+        fill="#0E4D3A">Eco</text>
+
+  <!-- Emblem: interlocking "pop" marks -->
+  <g transform="translate(178, 55)">
+    <!-- Forest ring (left) -->
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#0E4D3A" stroke-width="11"/>
+
+    <!-- Teal ring (right, interlocking) -->
+    <circle cx="32" cy="0" r="30" fill="none" stroke="#2C8C7B" stroke-width="11"/>
+
+    <!-- Lime "p" descender: stem + dot, tilted -->
+    <g transform="translate(-12, -42) rotate(-22)">
+      <rect x="0" y="0" width="7" height="26" rx="3.5" fill="#A5CC3F"/>
+      <circle cx="3.5" cy="-1" r="9" fill="#A5CC3F"/>
+    </g>
+  </g>
+
+  <!-- Wordmark "Pop" -->
+  <text x="262" y="84"
+        font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif"
+        font-weight="700" font-size="84" letter-spacing="-3"
+        fill="#1A1A1A">Pop</text>
+</svg>
