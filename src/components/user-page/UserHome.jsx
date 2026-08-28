@@ -62,7 +62,7 @@ export default function UserHome({ alerts, onOpenDenuncia }) {
             <div className="flex items-center gap-2">
               <img src="/ecopop-logo.svg" alt="EcoPop" className="h-7 w-7" />
               <span className="text-[11px] text-ink-300 font-mono uppercase tracking-[0.20em]">
-                EcoPop · EcoClave
+                EcoPop · Rep. Dom.
               </span>
             </div>
             <span className="text-[10px] text-ink-400 font-mono">Rep. Dom.</span>

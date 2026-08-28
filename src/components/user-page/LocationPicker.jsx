@@ -120,6 +120,7 @@ function describe(municipioFeature, lat, lng) {
 
 export default function LocationPicker({ municipios, value, onChange }) {
   const wrapRef = useRef(null);
+  const svgRef = useRef(null);
   const [size, setSize] = useState({ width: 320, height: 220 });
 
   // Track container size so the projection scales with the picker width.
@@ -194,10 +195,37 @@ export default function LocationPicker({ municipios, value, onChange }) {
     [provinceFC, pathGen]
   );
 
-  // Convert a click position to (lng, lat) using the projection's inverse.
-  function handleClick(e) {
-    const svg = e.currentTarget;
+  // Convert a tap/click position to (lng, lat) using the projection's inverse.
+  //
+  // We listen on `pointerdown` rather than `click` because:
+  //   1. `click` on mobile/touch is synthesized from touchend and is dropped if
+  //      the user moves their finger even a few pixels between touchstart and
+  //      touchend — extremely common on a map you want to "tap". `pointerdown`
+  //      fires on the initial contact, so the user sees the pin land
+  //      immediately.
+  //   2. It works uniformly for mouse, pen, and touch without per-device code.
+  // We still ignore non-primary buttons (right-click, middle-click) so users
+  // can still open the context menu on the map.
+  function handlePointerDown(e) {
+    // Only react to primary button (left mouse / first touch / pen tip).
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+
+    // Prefer SVG captured via ref (avoids the React synthetic-event pitfall
+    // where `e.currentTarget` can be null after the handler returns).
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    // Make sure we're acting on the SVG itself, not on a child element (the
+    // pin group has `pointer-events="none"`, but be defensive).
+    if (e.target !== svg) return;
+
+    // Don't let this pointerdown bubble into the modal backdrop, which would
+    // otherwise see a sibling mousedown and could interfere with focus or
+    // gesture handling.
+    e.stopPropagation();
+
     const rect = svg.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const inv = projection.invert([x, y]);
@@ -221,12 +249,21 @@ export default function LocationPicker({ municipios, value, onChange }) {
       <div
         ref={wrapRef}
         className="relative w-full h-44 sm:h-52 rounded-xl overflow-hidden border border-white/10 bg-seaNight-900 cursor-crosshair"
+        style={{
+          // Disable browser scroll/zoom gestures inside the picker so a tap is
+          // not consumed by the page or turned into a scroll. We still allow
+          // pointer events so taps register immediately.
+          touchAction: 'none',
+          userSelect: 'none',
+          WebkitTapHighlightColor: 'transparent',
+        }}
       >
         <svg
+          ref={svgRef}
           width={size.width}
           height={size.height}
           className="block"
-          onClick={handleClick}
+          onPointerDown={handlePointerDown}
           role="application"
           aria-label="Mapa para seleccionar ubicación"
         >

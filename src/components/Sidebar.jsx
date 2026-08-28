@@ -66,7 +66,7 @@ export default function Sidebar({ activeTab, onTabChange, onOpenUserPage, collap
         <img src="/ecopop-logo.svg" alt="EcoPop" className="h-8 w-8 shrink-0" />
         {!collapsed && (
           <div className="leading-tight">
-            <div className="text-[13px] font-bold text-ink-100 tracking-wide">EcoClave</div>
+            <div className="text-[13px] font-bold text-ink-100 tracking-wide">EcoPop</div>
             <div className="text-[10px] text-neon-300 font-mono uppercase tracking-[0.18em]">v0.1 · RD</div>
           </div>
         )}
