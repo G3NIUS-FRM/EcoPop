@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c2438"/>
+      <stop offset="50%" stop-color="#0e2e48"/>
+      <stop offset="100%" stop-color="#143d5c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="55%" r="60%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#60a5fa" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <rect width="800" height="480" fill="url(#glow)"/>
+
+  <!-- Water lines -->
+  <g stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.5">
+    <path d="M0 300 Q200 270 400 300 T800 300"/>
+    <path d="M0 340 Q200 310 400 340 T800 340"/>
+    <path d="M0 380 Q200 350 400 380 T800 380"/>
+    <path d="M0 420 Q200 390 400 420 T800 420"/>
+  </g>
+
+  <!-- Houses partially submerged -->
+  <g transform="translate(150,250)">
+    <!-- House 1 -->
+    <g>
+      <path d="M0 60 L50 20 L100 60 L100 130 L0 130 Z" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="40" y="80" width="20" height="30" fill="#fbbf24" opacity="0.7"/>
+    </g>
+    <!-- House 2 -->
+    <g transform="translate(160,40)">
+      <path d="M0 60 L50 20 L100 60 L100 130 L0 130 Z" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="40" y="80" width="20" height="30" fill="#fbbf24" opacity="0.7"/>
+    </g>
+    <!-- House 3 -->
+    <g transform="translate(320,80)">
+      <path d="M0 60 L50 20 L100 60 L100 130 L0 130 Z" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="40" y="80" width="20" height="30" fill="#fbbf24" opacity="0.7"/>
+    </g>
+  </g>
+
+  <!-- Water drop icon -->
+  <g transform="translate(560,80)" opacity="0.85">
+    <circle cx="40" cy="40" r="48" fill="#60a5fa" opacity="0.12"/>
+    <g stroke="#60a5fa" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 18 Q58 42 58 56 Q58 70 40 70 Q22 70 22 56 Q22 42 40 18 Z"/>
+      <path d="M32 56 Q32 64 40 64"/>
+    </g>
+  </g>
+
+  <!-- Bottom overlay -->
+  <linearGradient id="ov" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
+  </linearGradient>
+  <rect width="800" height="480" fill="url(#ov)"/>
+</svg>

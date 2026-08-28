@@ -83,10 +83,10 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
 
   return (
     <div className="glass rounded-xl overflow-hidden">
-      <div className="border-b border-neon-500/20 px-4 py-3 flex items-center justify-between gap-2 bg-white/40">
+      <div className="border-b border-white/8 px-4 py-3 flex items-center justify-between gap-2 bg-surface-200/55">
         <div>
           <div className="text-[11px] font-bold uppercase tracking-[0.18em] neon-text">◆ Alertas Ambientales</div>
-          <div className="text-[10px] text-ink-600 font-mono mt-0.5">
+          <div className="text-[10px] text-ink-400 font-mono mt-0.5">
             {sorted.length.toLocaleString('es-DO')} alertas geo-localizadas
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
               ◉ {territoryFilter.nombreMunicipio || territoryFilter.nombreProvincia}
               <button
                 onClick={() => setTerritoryFilter(null)}
-                className="ml-1.5 text-neon-500 hover:text-danger-400 font-bold"
+                className="ml-1.5 text-neon-300 hover:text-danger-300 font-bold"
                 title="Limpiar filtro"
               >
                 ×
@@ -118,7 +118,7 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
         </div>
       </div>
 
-      <div className="px-4 py-2 border-b border-neon-500/15">
+      <div className="px-4 py-2 border-b border-white/5">
         <FilterBar
           filters={{
             ...filters,
@@ -135,13 +135,13 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
 
       <div className="overflow-x-auto thin-scroll">
         <table className="min-w-full text-xs">
-          <thead className="bg-white/60 text-neon-500 uppercase tracking-wider text-[10px]">
+          <thead className="bg-surface-300/70 text-neon-300 uppercase tracking-wider text-[10px]">
             <tr>
               {COLUMNS.map((col) => (
                 <th
                   key={col.key}
-                  className={`px-3 py-2.5 text-left font-bold border-b border-neon-500/20 ${col.width || ''} ${
-                    col.sortable ? 'cursor-pointer hover:text-neon-500' : ''
+                  className={`px-3 py-2.5 text-left font-bold border-b border-white/8 ${col.width || ''} ${
+                    col.sortable ? 'cursor-pointer hover:text-plasma-400' : ''
                   }`}
                   onClick={col.sortable ? () => toggleSort(col.key) : undefined}
                 >
@@ -153,20 +153,20 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-neon-500/10">
+          <tbody className="divide-y divide-white/5">
             {pageItems.length === 0 ? (
               <tr>
-                <td colSpan={COLUMNS.length} className="px-3 py-6 text-center text-ink-600 italic font-mono">
+                <td colSpan={COLUMNS.length} className="px-3 py-6 text-center text-ink-400 italic font-mono">
                   No hay alertas que coincidan con los filtros.
                 </td>
               </tr>
             ) : (
               pageItems.map((e) => (
-                <tr key={e.id} className="hover:bg-neon-500/5 transition">
-                  <td className="px-3 py-2 text-ink-700 font-mono">
+                <tr key={e.id} className="hover:bg-neon-500/10 transition">
+                  <td className="px-3 py-2 text-ink-300 font-mono">
                     {new Date(e.fecha).toLocaleDateString('es-DO')}
                   </td>
-                  <td className="px-3 py-2 font-semibold text-ink-900">
+                  <td className="px-3 py-2 font-semibold text-ink-100">
                     <span className="mr-1">{TYPE_ICON[e.tipo] || '◆'}</span>
                     {e.tipo}
                   </td>
@@ -180,13 +180,13 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
                     </span>
                   </td>
                   <td className="px-3 py-2 neon-text-plasma font-mono text-[11px]">◉ {e.lugar}</td>
-                  <td className="px-3 py-2 text-ink-700">{e.municipioAfectado}</td>
-                  <td className="px-3 py-2 text-ink-700">{e.provincia}</td>
-                  <td className="px-3 py-2 text-ink-900 font-mono">
+                  <td className="px-3 py-2 text-ink-200">{e.municipioAfectado}</td>
+                  <td className="px-3 py-2 text-ink-200">{e.provincia}</td>
+                  <td className="px-3 py-2 text-ink-100 font-mono">
                     {e.poblacionAfectada.toLocaleString('es-DO')}
                   </td>
-                  <td className="px-3 py-2 text-ink-700 font-mono">{e.duracionDias}d</td>
-                  <td className="px-3 py-2 text-ink-600 max-w-md">{e.descripcion}</td>
+                  <td className="px-3 py-2 text-ink-300 font-mono">{e.duracionDias}d</td>
+                  <td className="px-3 py-2 text-ink-300 max-w-md">{e.descripcion}</td>
                 </tr>
               ))
             )}
@@ -194,7 +194,7 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
         </table>
       </div>
 
-      <div className="flex items-center justify-between px-4 py-2.5 border-t border-neon-500/15 text-xs text-ink-700 font-mono">
+      <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/5 text-xs text-ink-200 font-mono">
         <span>
           Página <span className="neon-text">{safePage + 1}</span> / {pageCount}
         </span>
@@ -202,14 +202,14 @@ export default function AlertsTable({ events, territoryFilter, setTerritoryFilte
           <button
             disabled={safePage === 0}
             onClick={() => setPage((p) => Math.max(0, p - 1))}
-            className="rounded border border-neon-500/30 px-3 py-1 text-neon-500 hover:bg-neon-500/20 hover:border-neon-400 disabled:opacity-30 disabled:hover:bg-transparent transition"
+            className="rounded border border-white/10 px-3 py-1 text-ink-200 hover:bg-surface-50 hover:text-ink-100 hover:border-neon-500/40 disabled:opacity-30 disabled:hover:bg-transparent transition"
           >
             ◀ Anterior
           </button>
           <button
             disabled={safePage >= pageCount - 1}
             onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
-            className="rounded border border-neon-500/30 px-3 py-1 text-neon-500 hover:bg-neon-500/20 hover:border-neon-400 disabled:opacity-30 disabled:hover:bg-transparent transition"
+            className="rounded border border-white/10 px-3 py-1 text-ink-200 hover:bg-surface-50 hover:text-ink-100 hover:border-neon-500/40 disabled:opacity-30 disabled:hover:bg-transparent transition"
           >
             Siguiente ▶
           </button>

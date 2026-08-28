@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#facc15" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#facc15" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#facc15" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="can" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <rect width="800" height="480" fill="url(#glow)"/>
+
+  <!-- Pile of bags -->
+  <g transform="translate(220,180)">
+    <ellipse cx="180" cy="260" rx="240" ry="22" fill="#000" opacity="0.45"/>
+    <!-- Bag 1 -->
+    <path d="M40 200 Q40 160 100 160 L240 160 Q300 160 300 200 L290 240 Q180 270 50 240 Z" fill="#1e293b" stroke="#0ea5e9" stroke-width="2" opacity="0.85"/>
+    <!-- Bag 2 -->
+    <path d="M180 140 Q180 105 235 105 L375 105 Q430 105 430 140 L420 180 Q310 210 190 180 Z" fill="#0f172a" stroke="#fbbf24" stroke-width="2" opacity="0.9"/>
+    <!-- Bag 3 -->
+    <path d="M340 230 Q340 195 395 195 L535 195 Q590 195 590 230 L580 270 Q470 300 350 270 Z" fill="#1e293b" stroke="#22c55e" stroke-width="2" opacity="0.85"/>
+  </g>
+
+  <!-- Trash icon overlay -->
+  <g transform="translate(560,80)" opacity="0.85">
+    <circle cx="40" cy="40" r="48" fill="#facc15" opacity="0.12"/>
+    <g stroke="#facc15" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 24 L58 24 L55 64 L25 64 Z"/>
+      <path d="M18 24 L62 24"/>
+      <path d="M30 18 L30 14 L50 14 L50 18"/>
+      <path d="M34 34 L34 56"/>
+      <path d="M46 34 L46 56"/>
+    </g>
+  </g>
+
+  <!-- Bottom gradient overlay -->
+  <linearGradient id="ov" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
+  </linearGradient>
+  <rect width="800" height="480" fill="url(#ov)"/>
+</svg>

@@ -33,7 +33,7 @@ function SuggestionItem({ s }) {
   const metrics = s.supportingMetrics || {};
   return (
     <li
-      className="rounded-md border border-neon-500/15 bg-white/40 hover:border-plasma-400/50 transition overflow-hidden"
+      className="rounded-md border border-white/8 bg-surface-200/55 hover:border-neon-500/40 transition overflow-hidden"
     >
       <button
         onClick={() => setOpen((o) => !o)}
@@ -43,29 +43,29 @@ function SuggestionItem({ s }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
             <PriorityBadge priority={s.priority} />
-            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border border-neon-500/25 text-neon-500 font-mono">
+            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border border-neon-500/40 text-neon-300 bg-neon-500/10 font-mono">
               {s.category}
             </span>
             <span className="text-[9px] text-ink-500 font-mono ml-auto">
               {Math.round(s.confidence * 100)}% conf.
             </span>
           </div>
-          <div className="text-[11px] font-semibold text-ink-900 leading-snug">{s.title}</div>
-          <div className="text-[10px] text-ink-600 mt-0.5 font-mono">
+          <div className="text-[11px] font-semibold text-ink-100 leading-snug">{s.title}</div>
+          <div className="text-[10px] text-ink-400 mt-0.5 font-mono">
             ▸ {s.action}
           </div>
         </div>
-        <div className="text-[10px] text-ink-400 font-mono">{open ? '−' : '+'}</div>
+        <div className="text-[10px] text-ink-500 font-mono">{open ? '−' : '+'}</div>
       </button>
       {open && (
-        <div className="px-3 pb-3 pt-0 border-t border-neon-500/10">
-          <p className="text-[11px] text-ink-700 mt-2 leading-relaxed">{s.rationale}</p>
+        <div className="px-3 pb-3 pt-0 border-t border-white/5">
+          <p className="text-[11px] text-ink-200 mt-2 leading-relaxed">{s.rationale}</p>
           {Object.keys(metrics).length > 0 && (
             <div className="mt-2 grid grid-cols-2 gap-1">
               {Object.entries(metrics).map(([k, v]) => (
                 <div key={k} className="text-[10px] font-mono">
                   <span className="text-ink-500">{k}: </span>
-                  <span className="text-neon-500 font-semibold">
+                  <span className="text-neon-300 font-semibold">
                     {typeof v === 'number' ? v.toLocaleString('es-DO', { maximumFractionDigits: 0 }) : v}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export default function AISuggestionsCard({ clients, events, territoryName, comp
       }
     >
       {suggestions.length === 0 ? (
-        <div className="text-xs text-ink-600 italic font-mono">
+        <div className="text-xs text-ink-400 italic font-mono">
           No hay alertas ni segmentos de clientes suficientes para generar recomendaciones.
         </div>
       ) : (
@@ -110,20 +110,20 @@ export default function AISuggestionsCard({ clients, events, territoryName, comp
             ))}
           </ul>
           {compact && suggestions.length > limit && (
-            <div className="mt-2 pt-2 border-t border-neon-500/10 text-[10px] text-ink-500 font-mono">
+            <div className="mt-2 pt-2 border-t border-white/5 text-[10px] text-ink-400 font-mono">
               + {suggestions.length - limit} sugerencia(s) más en la pestaña "IA"
             </div>
           )}
           {!compact && grouped.length > 1 && (
-            <div className="mt-3 pt-3 border-t border-neon-500/10">
-              <div className="text-[10px] uppercase tracking-wider text-ink-500 font-bold mb-1.5">
+            <div className="mt-3 pt-3 border-t border-white/5">
+              <div className="text-[10px] uppercase tracking-wider text-ink-400 font-bold mb-1.5">
                 Por categoría
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {grouped.map((g) => (
                   <span
                     key={g.category}
-                    className="text-[10px] font-mono px-2 py-0.5 rounded border border-neon-500/25 text-neon-500"
+                    className="text-[10px] font-mono px-2 py-0.5 rounded border border-neon-500/40 text-neon-300 bg-neon-500/10"
                   >
                     {CATEGORY_ICON[g.category] || '◆'} {g.category} · {g.items.length}
                   </span>

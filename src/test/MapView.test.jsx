@@ -177,11 +177,11 @@ describe('MapView — heatmap rendering', () => {
     expect(screen.getByText('10')).toBeInTheDocument();
   });
 
-  it('renders heatmap under a mix-blend-mode:multiply group', () => {
+  it('renders heatmap under a mix-blend-mode:screen group (dark theme)', () => {
     const events = makeAlerts(3);
     const { container } = render(<MapView data={makeData(events)} clients={[]} />);
     const heatGroup = Array.from(container.querySelectorAll('g')).find(
-      (g) => g.style.mixBlendMode === 'multiply'
+      (g) => g.style.mixBlendMode === 'screen'
     );
     expect(heatGroup).toBeTruthy();
     expect(heatGroup.children.length).toBe(events.length);

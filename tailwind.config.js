@@ -16,6 +16,15 @@ export default {
           700: '#334155',
           800: '#1e293b',
           900: '#0f172a',
+          950: '#070B12',
+        },
+        // Surface — card backgrounds on dark theme
+        surface: {
+          50:  '#1A2230',
+          100: '#141B26',
+          200: '#0F1622',
+          300: '#0B111C',
+          400: '#080D17',
         },
         // PRIMARY — Forest green (EcoPop brand)
         neon: {
@@ -56,13 +65,21 @@ export default {
           600: '#e11d48',
           700: '#be123c',
         },
-        // Caribbean blue (sea)
+        // Caribbean blue (sea) — daytime + nighttime variants
         sea: {
           100: '#cfe9f5',
           300: '#7cc4e8',
           500: '#3498db',
           700: '#1f6fa5',
           900: '#0f4c82',
+        },
+        // Night sea — used by MapView when wrapped in dark shell
+        seaNight: {
+          100: '#0c2438',
+          300: '#0e2e48',
+          500: '#143d5c',
+          700: '#1f4f73',
+          900: '#0a1c2e',
         },
       },
       fontFamily: {

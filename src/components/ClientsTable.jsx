@@ -77,10 +77,10 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
 
   return (
     <div className="glass rounded-xl overflow-hidden">
-      <div className="border-b border-neon-500/20 px-4 py-3 flex items-center justify-between gap-2 bg-white/40">
+      <div className="border-b border-white/8 px-4 py-3 flex items-center justify-between gap-2 bg-surface-200/55">
         <div>
           <div className="text-[11px] font-bold uppercase tracking-[0.18em] neon-text">◆ Clientes</div>
-          <div className="text-[10px] text-ink-600 font-mono mt-0.5">
+          <div className="text-[10px] text-ink-400 font-mono mt-0.5">
             {sorted.length.toLocaleString('es-DO')} resultados
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
               ◉ {territoryFilter.nombreMunicipio || territoryFilter.nombreProvincia || territoryFilter.nombreMacroregion}
               <button
                 onClick={() => setTerritoryFilter(null)}
-                className="ml-1.5 text-neon-500 hover:text-danger-400 font-bold"
+                className="ml-1.5 text-neon-300 hover:text-danger-300 font-bold"
                 title="Limpiar filtro"
               >
                 ×
@@ -112,7 +112,7 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
         </div>
       </div>
 
-      <div className="px-4 py-2 border-b border-neon-500/15">
+      <div className="px-4 py-2 border-b border-white/5">
         <FilterBar
           filters={filters}
           setFilters={(fn) => setFilters(typeof fn === 'function' ? fn(filters) : fn)}
@@ -122,13 +122,13 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
 
       <div className="overflow-x-auto thin-scroll">
         <table className="min-w-full text-xs">
-          <thead className="bg-white/60 text-neon-500 uppercase tracking-wider text-[10px]">
+          <thead className="bg-surface-300/70 text-neon-300 uppercase tracking-wider text-[10px]">
             <tr>
               {COLUMNS.map((col) => (
                 <th
                   key={col.key}
-                  className={`px-3 py-2.5 text-left font-bold border-b border-neon-500/20 ${col.width || ''} ${
-                    col.sortable ? 'cursor-pointer hover:text-neon-500' : ''
+                  className={`px-3 py-2.5 text-left font-bold border-b border-white/8 ${col.width || ''} ${
+                    col.sortable ? 'cursor-pointer hover:text-plasma-400' : ''
                   }`}
                   onClick={col.sortable ? () => toggleSort(col.key) : undefined}
                 >
@@ -140,27 +140,27 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-neon-500/10">
+          <tbody className="divide-y divide-white/5">
             {pageItems.length === 0 ? (
               <tr>
-                <td colSpan={COLUMNS.length} className="px-3 py-6 text-center text-ink-600 italic font-mono">
+                <td colSpan={COLUMNS.length} className="px-3 py-6 text-center text-ink-400 italic font-mono">
                   No hay clientes que coincidan con los filtros.
                 </td>
               </tr>
             ) : (
               pageItems.map((c) => (
-                <tr key={c.id} className="hover:bg-neon-500/5 transition">
+                <tr key={c.id} className="hover:bg-neon-500/10 transition">
                   <td className="px-3 py-2 text-ink-500 font-mono text-[10px]">{c.id.slice(0, 8)}</td>
-                  <td className="px-3 py-2 text-ink-900 font-semibold whitespace-nowrap">{c.nombre}</td>
-                  <td className="px-3 py-2 text-ink-800 font-mono">{c.edad}</td>
-                  <td className="px-3 py-2 text-ink-800 font-mono">{c.genero}</td>
-                  <td className="px-3 py-2 text-ink-800">{c.vocacion}</td>
+                  <td className="px-3 py-2 text-ink-100 font-semibold whitespace-nowrap">{c.nombre}</td>
+                  <td className="px-3 py-2 text-ink-200 font-mono">{c.edad}</td>
+                  <td className="px-3 py-2 text-ink-200 font-mono">{c.genero}</td>
+                  <td className="px-3 py-2 text-ink-200">{c.vocacion}</td>
                   <td className="px-3 py-2 neon-text font-mono font-bold">
                     DOP {c.ingresoMensual.toLocaleString('es-DO')}
                   </td>
-                  <td className="px-3 py-2 text-ink-700">{c.provincia}</td>
-                  <td className="px-3 py-2 text-ink-700">{c.territorioNombre}</td>
-                  <td className="px-3 py-2 text-ink-600 font-mono">
+                  <td className="px-3 py-2 text-ink-200">{c.provincia}</td>
+                  <td className="px-3 py-2 text-ink-200">{c.territorioNombre}</td>
+                  <td className="px-3 py-2 text-ink-400 font-mono">
                     {new Date(c.fechaRegistro).toLocaleDateString('es-DO')}
                   </td>
                   <td className="px-3 py-2">
@@ -177,7 +177,7 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
         </table>
       </div>
 
-      <div className="flex items-center justify-between px-4 py-2.5 border-t border-neon-500/15 text-xs text-ink-700 font-mono">
+      <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/5 text-xs text-ink-200 font-mono">
         <span>
           Página <span className="neon-text">{safePage + 1}</span> / {pageCount}
         </span>
@@ -185,14 +185,14 @@ export default function ClientsTable({ clients, allClients, territoryFilter, set
           <button
             disabled={safePage === 0}
             onClick={() => setPage((p) => Math.max(0, p - 1))}
-            className="rounded border border-neon-500/30 px-3 py-1 text-neon-500 hover:bg-neon-500/20 hover:border-neon-400 disabled:opacity-30 disabled:hover:bg-transparent transition"
+            className="rounded border border-white/10 px-3 py-1 text-ink-200 hover:bg-surface-50 hover:text-ink-100 hover:border-neon-500/40 disabled:opacity-30 disabled:hover:bg-transparent transition"
           >
             ◀ Anterior
           </button>
           <button
             disabled={safePage >= pageCount - 1}
             onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
-            className="rounded border border-neon-500/30 px-3 py-1 text-neon-500 hover:bg-neon-500/20 hover:border-neon-400 disabled:opacity-30 disabled:hover:bg-transparent transition"
+            className="rounded border border-white/10 px-3 py-1 text-ink-200 hover:bg-surface-50 hover:text-ink-100 hover:border-neon-500/40 disabled:opacity-30 disabled:hover:bg-transparent transition"
           >
             Siguiente ▶
           </button>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a2e1a"/>
+      <stop offset="50%" stop-color="#0f1f12"/>
+      <stop offset="100%" stop-color="#000"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="55%" r="60%">
+      <stop offset="0%" stop-color="#84cc16" stop-opacity="0.30"/>
+      <stop offset="60%" stop-color="#84cc16" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#84cc16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <rect width="800" height="480" fill="url(#glow)"/>
+
+  <!-- Tree stumps (foreground, deforested area) -->
+  <g transform="translate(80,260)">
+    <!-- Stump 1 -->
+    <g>
+      <rect x="20" y="120" width="50" height="60" fill="#3f2710" stroke="#1e1e1e" stroke-width="2"/>
+      <ellipse cx="45" cy="120" rx="28" ry="9" fill="#5b3a1a"/>
+      <ellipse cx="45" cy="120" rx="20" ry="6" fill="#1e1e1e" opacity="0.7"/>
+    </g>
+    <!-- Stump 2 -->
+    <g transform="translate(120,140)">
+      <rect x="20" y="120" width="60" height="60" fill="#3f2710" stroke="#1e1e1e" stroke-width="2"/>
+      <ellipse cx="50" cy="120" rx="32" ry="10" fill="#5b3a1a"/>
+      <ellipse cx="50" cy="120" rx="22" ry="6" fill="#1e1e1e" opacity="0.7"/>
+    </g>
+    <!-- Stump 3 -->
+    <g transform="translate(280,180)">
+      <rect x="20" y="120" width="50" height="60" fill="#3f2710" stroke="#1e1e1e" stroke-width="2"/>
+      <ellipse cx="45" cy="120" rx="28" ry="9" fill="#5b3a1a"/>
+      <ellipse cx="45" cy="120" rx="20" ry="6" fill="#1e1e1e" opacity="0.7"/>
+    </g>
+  </g>
+
+  <!-- Standing trees (background, surviving forest) -->
+  <g opacity="0.85">
+    <g transform="translate(450,120)">
+      <rect x="14" y="80" width="14" height="180" fill="#3f2710"/>
+      <ellipse cx="21" cy="60" rx="44" ry="50" fill="#15803d"/>
+      <ellipse cx="14" cy="40" rx="22" ry="24" fill="#22c55e"/>
+    </g>
+    <g transform="translate(580,140)">
+      <rect x="14" y="80" width="14" height="180" fill="#3f2710"/>
+      <ellipse cx="21" cy="60" rx="50" ry="55" fill="#166534"/>
+      <ellipse cx="14" cy="40" rx="26" ry="28" fill="#16a34a"/>
+    </g>
+    <g transform="translate(680,180)">
+      <rect x="10" y="80" width="14" height="180" fill="#3f2710"/>
+      <ellipse cx="17" cy="60" rx="40" ry="44" fill="#15803d"/>
+    </g>
+  </g>
+
+  <!-- Tree icon -->
+  <g transform="translate(560,60)" opacity="0.9">
+    <circle cx="40" cy="40" r="48" fill="#84cc16" opacity="0.12"/>
+    <g stroke="#84cc16" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 18 L24 42 L32 42 L20 60 L34 60 L20 76 L60 76 L46 60 L60 60 L48 42 L56 42 Z" fill="#0f1f12"/>
+    </g>
+  </g>
+
+  <!-- Bottom overlay -->
+  <linearGradient id="ov" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
+  </linearGradient>
+  <rect width="800" height="480" fill="url(#ov)"/>
+</svg>

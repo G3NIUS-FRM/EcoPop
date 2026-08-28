@@ -353,22 +353,24 @@ export default function MapView({ data, clients }) {
         style={{ display: 'block' }}
       >
         <defs>
-          {/* Caribbean blue sea */}
+          {/* Night-time Caribbean sea — dark blue → midnight */}
           <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="#cfe9f5" />
-            <stop offset="35%"  stopColor="#7cc4e8" />
-            <stop offset="70%"  stopColor="#3498db" />
-            <stop offset="100%" stopColor="#1f6fa5" />
+            <stop offset="0%"   stopColor="#0a1c2e" />
+            <stop offset="35%"  stopColor="#0c2438" />
+            <stop offset="70%"  stopColor="#0e2e48" />
+            <stop offset="100%" stopColor="#143d5c" />
           </linearGradient>
 
-          {/* Ocean waves */}
+          {/* Ocean waves (faint) */}
           <pattern id="waves" x="0" y="0" width="80" height="24" patternUnits="userSpaceOnUse">
-            <path d="M0 12 Q20 4 40 12 T80 12" stroke="rgba(255,255,255,0.45)" strokeWidth="0.7" fill="none" />
-            <path d="M0 18 Q20 10 40 18 T80 18" stroke="rgba(255,255,255,0.25)" strokeWidth="0.5" fill="none" />
+            <path d="M0 12 Q20 4 40 12 T80 12" stroke="rgba(120,200,255,0.18)" strokeWidth="0.7" fill="none" />
+            <path d="M0 18 Q20 10 40 18 T80 18" stroke="rgba(120,200,255,0.10)" strokeWidth="0.5" fill="none" />
           </pattern>
 
           {/* Heatmap radial gradients — one per severity. Mix-blend-mode:multiply
-              in the parent <g> makes overlapping blobs blend into hotter zones. */}
+              in the parent <g> makes overlapping blobs blend into hotter zones.
+              On the dark theme we switch to "screen" so the colorful blobs brighten
+              the navy polygons rather than getting swallowed by them. */}
           {Object.entries(HEAT_COLORS).map(([sev, color]) => (
             <radialGradient key={`heat-${sev}`} id={`heat-${sev}`} cx="50%" cy="50%" r="50%">
               <stop offset="0%"   stopColor={color} stopOpacity="0.85" />
@@ -386,7 +388,7 @@ export default function MapView({ data, clients }) {
 
         {/* Sea */}
         <rect width={size.width} height={size.height} fill="url(#seaGrad)" />
-        <rect width={size.width} height={size.height} fill="url(#waves)" opacity="0.7" />
+        <rect width={size.width} height={size.height} fill="url(#waves)" opacity="0.5" />
 
         {/* Pan/zoom group */}
         <g
@@ -414,9 +416,9 @@ export default function MapView({ data, clients }) {
                   else pathRefs.current.delete(fd.code);
                 }}
                 d={fd.d}
-                fill="#f1f5f9"
-                fillOpacity={selected ? 0.88 : 0.82}
-                stroke={selected ? '#A5CC3F' : '#0E4D3A'}
+                fill="#1f4f73"
+                fillOpacity={selected ? 0.92 : 0.82}
+                stroke={selected ? '#A5CC3F' : '#5BBC9A'}
                 strokeWidth={selected ? 2.5 : 1}
                 vectorEffect="non-scaling-stroke"
                 className={`feat-path cursor-pointer ${selected ? 'is-selected' : ''}`}
@@ -433,8 +435,10 @@ export default function MapView({ data, clients }) {
 
           {/* Heatmap — alerts rendered as soft radial-gradient circles at their
               (lat, lng) coordinates. NO per-province aggregation here: the visual
-              intensity comes purely from how many alert points cluster in an area. */}
-          <g style={{ mixBlendMode: 'multiply' }} filter="url(#heat-blur)" pointerEvents="none">
+              intensity comes purely from how many alert points cluster in an area.
+              Blend is "screen" on the dark theme so heat glows on top of the navy
+              polygons instead of darkening them further. */}
+          <g style={{ mixBlendMode: 'screen' }} filter="url(#heat-blur)" pointerEvents="none">
             {visibleHeatPoints.map((p) => {
               const r = HEAT_RADIUS[p.severity] || 70;
               return (
@@ -462,8 +466,8 @@ export default function MapView({ data, clients }) {
                     cy={p.y}
                     r={4 / view.k}
                     fill={color}
-                    fillOpacity={0.9}
-                    stroke="#ffffff"
+                    fillOpacity={0.95}
+                    stroke="#0F1622"
                     strokeWidth={1.2 / view.k}
                   >
                     <title>{`${p.tipo} · ${p.severity} · ${p.lugar}`}</title>
@@ -478,13 +482,13 @@ export default function MapView({ data, clients }) {
       {/* HUD top-left */}
       <div className="absolute left-3 top-3 z-10 glass rounded-lg px-3 py-2 text-xs w-52">
         <div className="flex items-center gap-2 mb-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-neon-500 animate-pulse-soft shadow-glow-soft" />
-          <span className="font-bold text-neon-500 tracking-wider text-[10px]">Mapa de calor</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-neon-400 animate-pulse-soft shadow-glow-soft" />
+          <span className="font-bold text-neon-300 tracking-wider text-[10px]">Mapa de calor</span>
         </div>
 
         {/* Toggle heatmap visibility */}
         <div className="flex items-center justify-between pointer-events-auto">
-          <span className="text-ink-700 text-[11px] font-medium">Heatmap</span>
+          <span className="text-ink-200 text-[11px] font-medium">Heatmap</span>
           <label className="inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
@@ -496,18 +500,18 @@ export default function MapView({ data, clients }) {
           </label>
         </div>
 
-        <div className="mt-3 pt-2 border-t border-ink-200">
+        <div className="mt-3 pt-2 border-t border-white/5">
           <div className="flex items-center gap-2">
-            <span className="text-ink-500 text-[10px] uppercase tracking-wider">Zoom</span>
-            <span className="text-ink-800 font-mono">{view.k.toFixed(2)}x</span>
+            <span className="text-ink-400 text-[10px] uppercase tracking-wider">Zoom</span>
+            <span className="text-ink-100 font-mono">{view.k.toFixed(2)}x</span>
           </div>
           <div className="mt-1 flex items-center gap-2">
-            <span className="text-ink-500 text-[10px] uppercase tracking-wider">Alertas</span>
-            <span className="text-neon-500 font-mono">{alerts.length}</span>
+            <span className="text-ink-400 text-[10px] uppercase tracking-wider">Alertas</span>
+            <span className="text-neon-300 font-mono">{alerts.length}</span>
           </div>
           <button
             onClick={resetView}
-            className="mt-2 w-full rounded border border-ink-200 bg-white px-2 py-1 text-[10px] text-neon-500 hover:bg-neon-50 hover:border-neon-400 transition font-mono"
+            className="mt-2 w-full rounded border border-white/10 bg-surface-300/70 px-2 py-1 text-[10px] text-ink-200 hover:bg-neon-500/20 hover:border-neon-400 hover:text-neon-200 transition font-mono"
           >
             ⟲ Reencuadrar
           </button>
@@ -516,16 +520,16 @@ export default function MapView({ data, clients }) {
 
       {/* Heatmap legend (bottom-right) */}
       <div className="pointer-events-none absolute right-3 bottom-3 z-10 glass rounded-lg px-3 py-2 text-[11px]">
-        <div className="font-bold text-neon-500 tracking-wider text-[10px] mb-1.5">
+        <div className="font-bold text-neon-300 tracking-wider text-[10px] mb-1.5">
           ◉ Severidad
         </div>
         {Object.entries(SEVERITY_COLOR).map(([sev, color]) => (
           <div key={sev} className="flex items-center gap-2 mb-0.5">
             <span
-              className="w-4 h-3 rounded-sm border border-ink-200"
+              className="w-4 h-3 rounded-sm border border-white/10"
               style={{ background: color, boxShadow: `0 0 6px ${color}` }}
             />
-            <span className="text-ink-700 font-mono text-[10px]">{sev}</span>
+            <span className="text-ink-200 font-mono text-[10px]">{sev}</span>
           </div>
         ))}
       </div>
@@ -536,21 +540,21 @@ export default function MapView({ data, clients }) {
         className="absolute top-0 left-0 z-20 glass-strong rounded-lg px-3 py-2 text-xs shadow-glow-soft pointer-events-none"
         style={{ display: 'none', transform: 'translate(-9999px, -9999px)' }}
       >
-        <div className="font-bold text-neon-500" data-tt="name">—</div>
-        <div className="text-ink-500 text-[10px] mt-0.5 font-mono uppercase tracking-wider" data-tt="level">—</div>
+        <div className="font-bold text-neon-300" data-tt="name">—</div>
+        <div className="text-ink-400 text-[10px] mt-0.5 font-mono uppercase tracking-wider" data-tt="level">—</div>
         <div className="flex items-center gap-2 mt-1 font-mono text-[11px]">
-          <span className="text-neon-500">◆ <span data-tt="ev">0</span></span>
-          <span className="text-ink-500">alertas</span>
+          <span className="text-neon-300">◆ <span data-tt="ev">0</span></span>
+          <span className="text-ink-400">alertas</span>
           <span data-tt="clrow">
-            <span className="text-ink-500 ml-1">·</span>
-            <span className="text-neon-500 ml-1">◉ <span data-tt="cl">0</span></span>
-            <span className="text-ink-500 ml-1">clientes</span>
+            <span className="text-ink-400 ml-1">·</span>
+            <span className="text-neon-300 ml-1">◉ <span data-tt="cl">0</span></span>
+            <span className="text-ink-400 ml-1">clientes</span>
           </span>
         </div>
       </div>
 
       {/* Hint top-right */}
-      <div className="pointer-events-none absolute right-3 top-3 z-10 glass-soft rounded-md px-2.5 py-1 text-[10px] text-ink-600 font-mono tracking-wider">
+      <div className="pointer-events-none absolute right-3 top-3 z-10 glass-soft rounded-md px-2.5 py-1 text-[10px] text-ink-300 font-mono tracking-wider">
         Arrastra · Rueda zoom · 2× click deselecciona
       </div>
     </div>

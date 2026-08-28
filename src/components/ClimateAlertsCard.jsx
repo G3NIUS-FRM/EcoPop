@@ -7,9 +7,9 @@ const TYPE_ICON = {
 };
 
 const SEV_BG = {
-  Baja: 'bg-neon-500/15 text-neon-500 border-neon-400/40',
-  Media: 'bg-warn-400/15 text-warn-400 border-warn-400/40',
-  Alta: 'bg-warn-500/25 text-warn-500 border-warn-500/60',
+  Baja: 'bg-neon-500/15 text-neon-300 border-neon-400/40',
+  Media: 'bg-warn-400/15 text-warn-300 border-warn-400/40',
+  Alta: 'bg-warn-500/25 text-warn-300 border-warn-500/60',
   Crítica: 'bg-danger-500/30 text-danger-300 border-danger-400/70',
 };
 
@@ -29,13 +29,15 @@ export default function ClimateAlertsCard({ events, territoryName }) {
       footer={`${events?.length || 0} alertas geo-localizadas en territorio`}
     >
       {sorted.length === 0 ? (
-        <div className="text-xs text-ink-600 italic font-mono">No hay alertas ambientales registradas en este territorio.</div>
+        <div className="text-xs text-ink-400 italic font-mono">
+          No hay alertas ambientales registradas en este territorio.
+        </div>
       ) : (
         <ul className="space-y-2">
           {sorted.map((e) => (
             <li
               key={e.id}
-              className="flex items-start gap-2 rounded-md border border-neon-500/15 bg-white/40 p-2 hover:border-danger-400/40 transition"
+              className="flex items-start gap-2 rounded-md border border-white/8 bg-surface-200/55 p-2 hover:border-danger-400/40 transition"
             >
               <div className="text-base shrink-0 mt-0.5">{TYPE_ICON[e.tipo] || '⚠'}</div>
               <div className="flex-1 min-w-0">
@@ -47,10 +49,10 @@ export default function ClimateAlertsCard({ events, territoryName }) {
                   >
                     {e.severidad}
                   </span>
-                  <span className="text-[11px] text-ink-900 font-semibold truncate">{e.tipo}</span>
+                  <span className="text-[11px] text-ink-100 font-semibold truncate">{e.tipo}</span>
                 </div>
-                <div className="text-[11px] text-neon-500 font-mono truncate">◉ {e.lugar}</div>
-                <div className="text-[10px] text-ink-600 truncate font-mono">
+                <div className="text-[11px] text-neon-300 font-mono truncate">◉ {e.lugar}</div>
+                <div className="text-[10px] text-ink-400 truncate font-mono">
                   {e.municipioAfectado}, {e.provincia}
                 </div>
                 <div className="text-[10px] text-ink-500 font-mono">

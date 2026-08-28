@@ -145,7 +145,7 @@ export default function FilterBar({ filters, setFilters, options }) {
 
       <button
         onClick={() => setFilters({})}
-        className="ml-auto rounded-md border border-neon-500/30 bg-white/70 px-3 py-1.5 text-xs font-medium text-neon-500 hover:bg-neon-500/20 hover:border-neon-400 hover:shadow-glow-soft transition"
+        className="ml-auto rounded-md border border-white/10 bg-surface-300/70 px-3 py-1.5 text-xs font-medium text-ink-200 hover:bg-neon-500/20 hover:border-neon-400 hover:text-neon-200 hover:shadow-glow-soft transition"
       >
         ✕ Limpiar
       </button>
