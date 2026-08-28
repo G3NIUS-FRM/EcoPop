@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ALERT_TYPES, findMacroregionForProvince } from '../../lib/territoryLookup.js';
 import { listDenouncers } from '../../data/generateClients.js';
+import LocationPicker from './LocationPicker.jsx';
 
 // DenunciaForm — modal-style form for end-users to file a new environmental
 // report. Captures: nombre, tipo (radio cards), problema (textarea), ubicacion
@@ -45,11 +46,12 @@ export default function DenunciaForm({
   onSubmit,
   existingClients = [],
   existingDenouncers = [],
+  municipios = null,
 }) {
   const [nombre, setNombre] = useState('');
   const [tipo, setTipo] = useState(ALERT_TYPES[0]);
   const [problema, setProblema] = useState('');
-  const [ubicacion, setUbicacion] = useState('');
+  const [ubicacion, setUbicacion] = useState(null);
   const [errors, setErrors] = useState({});
   const firstFieldRef = useRef(null);
 
@@ -57,6 +59,7 @@ export default function DenunciaForm({
   useEffect(() => {
     if (open) {
       setErrors({});
+      setUbicacion(null);
       setTimeout(() => firstFieldRef.current?.focus(), 60);
     }
   }, [open]);
@@ -84,7 +87,8 @@ export default function DenunciaForm({
     else if (nombre.trim().length < 3) next.nombre = 'Nombre demasiado corto.';
     if (!problema.trim() || problema.trim().length < 10)
       next.problema = 'Cuéntanos un poco más (mínimo 10 caracteres).';
-    if (!ubicacion.trim()) next.ubicacion = 'Indica una ubicación.';
+    if (!ubicacion || !isFinite(ubicacion.lat) || !isFinite(ubicacion.lng))
+      next.ubicacion = 'Toca el mapa para fijar tu ubicación.';
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -104,20 +108,23 @@ export default function DenunciaForm({
         (c) => c.nombre.toLowerCase() === cleanNombre.toLowerCase()
       ) || null;
 
+    const macroId = findMacroregionForProvince(ubicacion.codigoProvincia);
+
     const report = {
       id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       tipo,
       severidad: 'Media',
       fecha: new Date().toISOString(),
-      municipioAfectado: '—',
-      provincia: '—',
-      codigoMunicipio: '',
-      codigoProvincia: '',
+      municipioAfectado: ubicacion.municipioNombre || 'Ubicación seleccionada',
+      provincia: ubicacion.provincia || '—',
+      codigoMunicipio: ubicacion.codigoMunicipio || '',
+      codigoProvincia: ubicacion.codigoProvincia || '',
+      macrorregionId: macroId || null,
       poblacionAfectada: 0,
       duracionDias: 0,
-      lugar: ubicacion.trim(),
-      lat: 18.7,
-      lng: -70.16,
+      lugar: ubicacion.lugar || ubicacion.municipioNombre || 'Ubicación seleccionada',
+      lat: ubicacion.lat,
+      lng: ubicacion.lng,
       descripcion: problema.trim(),
       ilustracion: `/illustrations/${tipo === 'Exceso de basura' ? 'basura' : tipo === 'Inundación' ? 'inundacion' : 'deforestacion'}.svg`,
       denuncianteId: match?.id || `local-${cleanNombre.replace(/\s+/g, '-').toLowerCase()}`,
@@ -234,19 +241,19 @@ export default function DenunciaForm({
             </div>
           </Field>
 
-          {/* Ubicación */}
+          {/* Ubicación — pick on map */}
           <Field label="Ubicación" error={errors.ubicacion} required>
-            <input
-              type="text"
-              value={ubicacion}
-              onChange={(e) => setUbicacion(e.target.value)}
-              placeholder="Ej. Los Mina, Santo Domingo Este"
-              className="input-dark w-full"
-              autoComplete="street-address"
-            />
-            <p className="mt-1 text-[10px] text-ink-500 font-mono">
-              Dirección, barrio o referencia cercana.
+            <p className="text-[10px] text-ink-500 font-mono mb-1.5">
+              Toca el mapa para fijar el punto exacto del reporte.
             </p>
+            <LocationPicker
+              municipios={municipios}
+              value={ubicacion}
+              onChange={(v) => {
+                setUbicacion(v);
+                if (errors.ubicacion) setErrors((p) => ({ ...p, ubicacion: undefined }));
+              }}
+            />
           </Field>
 
           {/* Submit */}

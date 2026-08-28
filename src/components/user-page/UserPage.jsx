@@ -17,7 +17,7 @@ import BottomNav from './BottomNav.jsx';
 //   clients       : Array — full client list; we use `listDenouncers` to find
 //                   matches for avatar re-use.
 
-export default function UserPage({ alerts = [], clients = [] }) {
+export default function UserPage({ alerts = [], clients = [], municipios = null }) {
   const [screen, setScreen] = useState('home'); // 'home' | 'form' | 'confirm'
   const [activeTab, setActiveTab] = useState('home');
   const [submittedReport, setSubmittedReport] = useState(null);
@@ -90,6 +90,7 @@ export default function UserPage({ alerts = [], clients = [] }) {
         onSubmit={handleSubmit}
         existingClients={clients}
         existingDenouncers={denouncers}
+        municipios={municipios}
       />
 
       <DenunciaConfirm

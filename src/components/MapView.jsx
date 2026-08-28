@@ -211,6 +211,13 @@ export default function MapView({ data, clients }) {
   }, [provincias, size.width, fitToFeature]);
 
   // ---------- Wheel handler with rAF throttle ----------
+  // We can't rely on React's synthetic `onWheel` because, depending on the
+  // browser, the listener can be passive — and passive listeners can NOT call
+  // preventDefault. That means a wheel over the map would still scroll the
+  // page. We attach the wheel listener manually with `{ passive: false }` so
+  // the browser respects our preventDefault, and we keep `touch-action: none`
+  // on the container so two-finger trackpad / pinch gestures don't trigger
+  // page scroll either.
   const handleWheel = useCallback((e) => {
     e.preventDefault();
     if (wheelRafRef.current) return;
@@ -231,6 +238,13 @@ export default function MapView({ data, clients }) {
       });
     });
   }, []);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, [handleWheel]);
 
   // ---------- Mouse / drag ----------
   const handleMouseDown = useCallback((e) => {
@@ -340,7 +354,7 @@ export default function MapView({ data, clients }) {
       className={`relative h-full w-full overflow-hidden ${
         isDragging ? 'cursor-grabbing' : 'cursor-grab'
       }`}
-      onWheel={handleWheel}
+      style={{ touchAction: 'none' }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

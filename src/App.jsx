@@ -157,7 +157,7 @@ function AppShell() {
 
   // /user-page → end-user mobile shell. Anything else renders the admin SPA.
   if (path === '/user-page') {
-    return <UserPage alerts={events} clients={clients} />;
+    return <UserPage alerts={events} clients={clients} municipios={data.municipios} />;
   }
 
   return (
